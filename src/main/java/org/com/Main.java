@@ -1,17 +1,45 @@
 package org.com;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+import java.util.HashMap;
+import java.util.Objects;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Main.processNumber("111221");
+    }
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+    public String countAndSay(int n) {
+
+        return "";
+    }
+
+    public static String processNumber(String number) {
+        HashMap<String, Integer> stringIntegerHashMap = new HashMap<>();
+        String countAndSay = "";
+        // sliding window []
+        //[1,2,1,1]
+        String[] split = number.split("");
+
+        for (int i = 0; i < split.length; i++) {
+            if(i < split.length - 1 && Objects.equals(split[i], split[i+1])) {
+               //increase window
+                //validate window boundary
+                for (int j = i; j < split.length; j++) {
+                    if(!Objects.equals(split[j], split[j + 1])) {
+                        stringIntegerHashMap.put(split[j], j-i+1);
+                        i = j;
+                        break;
+                    }
+                }
+            } else {
+                stringIntegerHashMap.put(split[i], 1);
+            }
+
+            countAndSay += stringIntegerHashMap.get(split[i]) + split[i];
+            stringIntegerHashMap.clear();
         }
+        System.out.println(stringIntegerHashMap);
+        return null;
     }
 }
